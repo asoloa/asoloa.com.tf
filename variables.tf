@@ -18,7 +18,7 @@ variable "hostinger_api_token" {
 
 variable "domain_name" {
   description = "Domain Name"
-  type = string
+  type        = string
 }
 
 variable "aws_caa_records" {

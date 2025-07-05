@@ -37,7 +37,7 @@ resource "hostinger_dns_record" "cert_validation" {
       value = dvo.resource_record_value
     }
   }
-  zone  = "${var.domain_name}"
+  zone  = var.domain_name
   name  = replace(each.value.name, ".${var.domain_name}.", "")
   type  = each.value.type
   value = each.value.value

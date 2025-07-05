@@ -52,8 +52,8 @@ resource "aws_iam_role_policy_attachment" "lambda_permissions" {
 # Package the Lambda function code
 data "archive_file" "lambda_func_zip" {
   type        = "zip"
-  source_file = "${path.module}/${var.script_file}"
-  output_path = "${path.module}/${replace(var.script_file, "py","zip")}"
+  source_file = "${path.module}/src/${var.script_file}"
+  output_path = "${path.module}/src/${replace(var.script_file, split(".", var.script_file)[1], "zip")}"
 }
 
 # Lambda function
@@ -64,7 +64,7 @@ resource "aws_lambda_function" "lambda_func" {
   handler          = "${split(".", var.script_file)[0]}.${var.lambda_handler}"
   source_code_hash = data.archive_file.lambda_func_zip.output_base64sha256
 
-  runtime = "python3.13"
+  runtime = var.runtime
   environment {
     variables = {
       DYNAMODB_TABLE_NAME = aws_dynamodb_table.visitor-count-table.name
