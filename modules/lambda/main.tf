@@ -25,7 +25,7 @@ resource "aws_iam_policy" "dynamodb_get_put_item" {
         "dynamodb:PutItem"
       ]
       Effect   = "Allow"
-      Resource = aws_dynamodb_table.visitor-count-table.arn
+      Resource = var.dynamodb_table_arn
     }]
   })
 }
@@ -67,8 +67,8 @@ resource "aws_lambda_function" "lambda_func" {
   runtime = var.runtime
   environment {
     variables = {
-      DYNAMODB_TABLE_NAME = aws_dynamodb_table.visitor-count-table.name
-      DYNAMODB_TABLE_PK   = aws_dynamodb_table.visitor-count-table.hash_key
+      DYNAMODB_TABLE_NAME = var.dynamodb_table_name
+      DYNAMODB_TABLE_PK   = var.dynamodb_table_hashkey
       DYNAMODB_TABLE_ITEM = "view-count"
     }
   }
@@ -82,4 +82,12 @@ resource "aws_lambda_function_url" "lambda_func_url" {
     allow_credentials = false
     allow_origins     = ["*"]
   }
+}
+
+output "lambda_func_name" {
+  value = aws_lambda_function.lambda_func.function_name
+}
+
+output "lambda_func_invoke_arn" {
+  value = aws_lambda_function.lambda_func.invoke_arn
 }

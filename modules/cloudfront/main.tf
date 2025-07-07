@@ -8,8 +8,8 @@ resource "aws_cloudfront_origin_access_control" "cloudfront_oac" {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name              = aws_s3_bucket.crc_bucket.bucket_domain_name
-    origin_id                = aws_s3_bucket.crc_bucket.id
+    domain_name              = var.s3_bucket_domain_name
+    origin_id                = var.s3_bucket_id
     origin_access_control_id = aws_cloudfront_origin_access_control.cloudfront_oac.id
   }
   enabled             = true
@@ -20,7 +20,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = aws_s3_bucket.crc_bucket.id
+    target_origin_id = var.s3_bucket_id
     forwarded_values {
       query_string = false
       cookies {
@@ -40,7 +40,41 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate.cert.arn
+    acm_certificate_arn = var.acm_certificate_arn
     ssl_support_method  = "sni-only"
   }
+}
+
+resource "null_resource" "cloudfront_alias" {
+  provisioner "local-exec" {
+    command = <<EOT
+        curl https://developers.hostinger.com/api/dns/v1/zones/${var.domain_name} \
+            --request PUT \
+            --header 'Content-Type: application/json' \
+            --header 'Authorization: Bearer ${var.hostinger_api_token}' \
+            --data '{
+            "overwrite": false,
+            "zone": [
+            {
+                "name": "@",
+                "records": [
+                {
+                    "content": "\"${aws_cloudfront_distribution.s3_distribution.domain_name}\""
+                }
+                ],
+                "ttl": 14400,
+                "type": "CNAME"
+            }
+            ]
+        }'
+        EOT
+  }
+}
+
+output "distribution_domain_name" {
+  value = aws_cloudfront_distribution.s3_distribution.domain_name
+}
+
+output "distribution_arn" {
+  value = aws_cloudfront_distribution.s3_distribution.arn
 }

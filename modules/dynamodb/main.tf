@@ -8,6 +8,13 @@ resource "aws_dynamodb_table" "visitor-count-table" {
   }
 }
 
+output "dynamodb_table_arn" {
+  value = aws_dynamodb_table.visitor-count-table.arn
+}
+output "dynamodb_table_hashkey" {
+  value = aws_dynamodb_table.visitor-count-table.hash_key
+}
+
 # resource "aws_dynamodb_table_item" "first_view" {
 #   table_name = aws_dynamodb_table.visitor-count-table.name
 #   hash_key   = aws_dynamodb_table.visitor-count-table.hash_key

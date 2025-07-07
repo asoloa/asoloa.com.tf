@@ -28,6 +28,6 @@ locals {
   common_tags = {
     project     = "asoloa.com"
     environment = "prod"
-    managed_by  = "Terraform ${terraform.version}"
+    managed_by  = "Terraform"
   }
 }

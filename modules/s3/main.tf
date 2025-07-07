@@ -30,11 +30,26 @@ resource "aws_s3_bucket_policy" "crc_bucket_policy" {
                 "Resource": "${aws_s3_bucket.crc_bucket.arn}/*",
                 "Condition": {
                     "StringEquals": {
-                        "AWS:SourceArn": "${aws_cloudfront_distribution.s3_distribution.arn}"
+                        "AWS:SourceArn": "${var.distribution_arn}"
                     }
                 }
             }
         ]
     }
     EOT
+}
+
+resource "null_resource" "site_files_upload" {
+  provisioner "local-exec" {
+    command = "aws s3 sync ${var.site_files_path}/. s3://${aws_s3_bucket.crc_bucket.id} --delete --exclude '.git/*' --exclude '.git'"
+    working_dir = path.root
+  }
+}
+
+output "s3_bucket_domain_name" {
+  value = aws_s3_bucket.crc_bucket.bucket_domain_name
+}
+
+output "s3_bucket_id" {
+  value = aws_s3_bucket.crc_bucket.id
 }
