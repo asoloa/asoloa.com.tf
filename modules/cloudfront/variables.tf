@@ -17,9 +17,3 @@ variable "acm_certificate_arn" {
   description = "ACM Certificate ARN"
   type        = string
 }
-
-variable "hostinger_api_token" {
-  description = "Hostinger API Token"
-  type        = string
-  sensitive   = true
-}

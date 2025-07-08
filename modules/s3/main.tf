@@ -1,10 +1,10 @@
-# S3 Bucket Resource
+# Creates an AWS S3 bucket for storing website files
 resource "aws_s3_bucket" "crc_bucket" {
   bucket        = "${var.domain_name}-bucket"
   force_destroy = true
 }
 
-# S3 Bucket Public Access Block
+# Blocks public access for the S3 bucket to enhance security
 resource "aws_s3_bucket_public_access_block" "crc_bucket" {
   bucket                  = aws_s3_bucket.crc_bucket.id
   block_public_acls       = true
@@ -13,6 +13,7 @@ resource "aws_s3_bucket_public_access_block" "crc_bucket" {
   restrict_public_buckets = true
 }
 
+# Defines an S3 bucket policy for CloudFront to securely access the bucket's contents
 resource "aws_s3_bucket_policy" "crc_bucket_policy" {
   bucket = aws_s3_bucket.crc_bucket.id
   policy = <<EOT
@@ -39,17 +40,10 @@ resource "aws_s3_bucket_policy" "crc_bucket_policy" {
     EOT
 }
 
+# Uploads site files to the S3 bucket using `aws s3 sync` command
 resource "null_resource" "site_files_upload" {
   provisioner "local-exec" {
-    command = "aws s3 sync ${var.site_files_path}/. s3://${aws_s3_bucket.crc_bucket.id} --delete --exclude '.git/*' --exclude '.git'"
+    command     = "aws s3 sync ${var.site_files_path}/. s3://${aws_s3_bucket.crc_bucket.id} --delete --exclude '.git/*' --exclude '.git'"
     working_dir = path.root
   }
-}
-
-output "s3_bucket_domain_name" {
-  value = aws_s3_bucket.crc_bucket.bucket_domain_name
-}
-
-output "s3_bucket_id" {
-  value = aws_s3_bucket.crc_bucket.id
 }

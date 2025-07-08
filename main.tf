@@ -1,8 +1,18 @@
-module "acm_dns" {
-  source              = "./modules/acm_dns"
-  hostinger_api_token = var.hostinger_api_token
-  domain_name         = var.domain_name
-  aws_caa_records     = var.aws_caa_records
+module "acm" {
+  # Must wait for Hostinger module to add the AWS CAA records to avoid CAA error
+  depends_on                  = [module.hostinger.caa_records-task]
+  source                      = "./modules/acm"
+  domain_name                 = var.domain_name
+  validation_record_fqdns_set = module.hostinger.validation_record_fqdns_set
+}
+
+module "hostinger" {
+  source                    = "./modules/hostinger"
+  hostinger_api_token       = var.hostinger_api_token
+  domain_name               = var.domain_name
+  aws_caa_records           = var.aws_caa_records
+  distribution_domain_name  = module.cloudfront.distribution_domain_name
+  domain_validation_options = module.acm.domain_validation_options
 }
 
 module "api_gateway" {
@@ -13,14 +23,11 @@ module "api_gateway" {
 }
 
 module "cloudfront" {
-  # Added dependency to "acm_dns" module to wait for certificate verification to finish before creating distribution
-  # depends_on            = [module.acm_dns]
   source                = "./modules/cloudfront"
   domain_name           = var.domain_name
   s3_bucket_domain_name = module.s3.s3_bucket_domain_name
   s3_bucket_id          = module.s3.s3_bucket_id
-  acm_certificate_arn   = module.acm_dns.acm_certificate_arn
-  hostinger_api_token   = var.hostinger_api_token
+  acm_certificate_arn   = module.acm.acm_certificate_arn
 }
 
 module "dynamodb" {

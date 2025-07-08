@@ -1,3 +1,4 @@
+# Configures an Origin Access Control (OAC) for CloudFront to securely access an S3 bucket
 resource "aws_cloudfront_origin_access_control" "cloudfront_oac" {
   name                              = "${var.domain_name} CloudFront OAC"
   description                       = "${var.domain_name} CloudFront OAC"
@@ -6,6 +7,8 @@ resource "aws_cloudfront_origin_access_control" "cloudfront_oac" {
   signing_protocol                  = "sigv4"
 }
 
+# Creates a CloudFront distribution for an S3 bucket, enabling secure content delivery
+# with Origin Access Control (OAC), HTTPS redirection, and custom domain support.
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name              = var.s3_bucket_domain_name
@@ -43,38 +46,4 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     acm_certificate_arn = var.acm_certificate_arn
     ssl_support_method  = "sni-only"
   }
-}
-
-resource "null_resource" "cloudfront_alias" {
-  provisioner "local-exec" {
-    command = <<EOT
-        curl https://developers.hostinger.com/api/dns/v1/zones/${var.domain_name} \
-            --request PUT \
-            --header 'Content-Type: application/json' \
-            --header 'Authorization: Bearer ${var.hostinger_api_token}' \
-            --data '{
-            "overwrite": false,
-            "zone": [
-            {
-                "name": "@",
-                "records": [
-                {
-                    "content": "\"${aws_cloudfront_distribution.s3_distribution.domain_name}\""
-                }
-                ],
-                "ttl": 14400,
-                "type": "CNAME"
-            }
-            ]
-        }'
-        EOT
-  }
-}
-
-output "distribution_domain_name" {
-  value = aws_cloudfront_distribution.s3_distribution.domain_name
-}
-
-output "distribution_arn" {
-  value = aws_cloudfront_distribution.s3_distribution.arn
 }

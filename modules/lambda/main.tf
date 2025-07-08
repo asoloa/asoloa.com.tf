@@ -1,4 +1,4 @@
-# IAM role for Lambda execution
+# Defines an IAM role for AWS Lambda function execution
 resource "aws_iam_role" "assume_role" {
   name = "lambda_assume_role"
 
@@ -14,6 +14,7 @@ resource "aws_iam_role" "assume_role" {
   })
 }
 
+# Defines an IAM policy for DynamoDB GetItem and PutItem operations
 # Instead of using DynamoDBFullAccess, only allow the required actions on the target table
 resource "aws_iam_policy" "dynamodb_get_put_item" {
   name = "dynamodb_get_put_item"
@@ -30,6 +31,7 @@ resource "aws_iam_policy" "dynamodb_get_put_item" {
   })
 }
 
+# Attaches IAM policies to the Lambda function's execution role
 resource "aws_iam_role_policy_attachment" "lambda_permissions" {
   # ERROR:
   # The "for_each" set includes values derived from resource attributes that cannot be determined until apply,
@@ -49,14 +51,14 @@ resource "aws_iam_role_policy_attachment" "lambda_permissions" {
   role       = aws_iam_role.assume_role.name
 }
 
-# Package the Lambda function code
+# Prepares a ZIP archive of the Lambda function source code
 data "archive_file" "lambda_func_zip" {
   type        = "zip"
   source_file = "${path.module}/src/${var.script_file}"
   output_path = "${path.module}/src/${replace(var.script_file, split(".", var.script_file)[1], "zip")}"
 }
 
-# Lambda function
+# Creates an AWS Lambda function with specified configuration
 resource "aws_lambda_function" "lambda_func" {
   filename         = data.archive_file.lambda_func_zip.output_path
   function_name    = "${replace(var.domain_name, ".", "_")}-views_counter"
@@ -74,6 +76,7 @@ resource "aws_lambda_function" "lambda_func" {
   }
 }
 
+# Creates a URL endpoint for the Lambda function, enabling direct HTTP(S) invocation
 resource "aws_lambda_function_url" "lambda_func_url" {
   function_name      = aws_lambda_function.lambda_func.function_name
   authorization_type = "NONE"
@@ -82,12 +85,4 @@ resource "aws_lambda_function_url" "lambda_func_url" {
     allow_credentials = false
     allow_origins     = ["*"]
   }
-}
-
-output "lambda_func_name" {
-  value = aws_lambda_function.lambda_func.function_name
-}
-
-output "lambda_func_invoke_arn" {
-  value = aws_lambda_function.lambda_func.invoke_arn
 }

@@ -45,6 +45,6 @@ variable "api_gateway_stage" {
 }
 
 variable "site_files_path" {
-  description = "Path to the site files"
+  description = "Path to the site files. Accepts an absolute path or a relative path from the root of the project."
   type        = string
 }

@@ -1,26 +1,31 @@
-# # Certificate outputs
-# output "certificate_arn" {
-#   description = "ARN of the ACM certificate"
-#   value       = aws_acm_certificate.cert.arn
-# }
+output "domain_name" {
+  value = var.domain_name
+}
 
-# # S3 bucket outputs
-# output "s3_bucket_name" {
-#   description = "Name of the S3 bucket"
-#   value       = aws_s3_bucket.crc_bucket.bucket
-# }
+output "acm_certificate_arn" {
+  value = module.acm.acm_certificate_arn
+}
 
-# output "s3_bucket_arn" {
-#   description = "ARN of the S3 bucket"
-#   value       = aws_s3_bucket.crc_bucket.arn
-# }
+output "s3_bucket_domain_name" {
+  value = module.s3.s3_bucket_domain_name
+}
 
-# output "cloudfront_distribution_id" {
-#   description = "ID of the CloudFront distribution"
-#   value       = aws_cloudfront_distribution.s3_distribution.id
-# }
+output "dynamodb_table_arn" {
+  value = module.dynamodb.dynamodb_table_arn
+}
 
-# output "cloudfront_distribution_arn" {
-#   description = "ARN of the CloudFront distribution"
-#   value       = aws_cloudfront_distribution.s3_distribution.arn
-# }
+output "cloudfront_distribution_arn" {
+  value = module.cloudfront.distribution_arn
+}
+
+output "cloudfront_distribution_domain_name" {
+  value = module.cloudfront.distribution_domain_name
+}
+
+output "lambda_invoke_arn" {
+  value = module.lambda.lambda_func_invoke_arn
+}
+
+output "api_gateway_invoke_url" {
+  value = module.api_gateway.api_gateway_invoke_url
+}
