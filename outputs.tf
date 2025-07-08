@@ -14,6 +14,10 @@ output "dynamodb_table_arn" {
   value = module.dynamodb.dynamodb_table_arn
 }
 
+output "dynamodb_table_hash_key" {
+  value = module.dynamodb.dynamodb_table_hashkey
+}
+
 output "cloudfront_distribution_arn" {
   value = module.cloudfront.distribution_arn
 }
@@ -26,6 +30,10 @@ output "lambda_invoke_arn" {
   value = module.lambda.lambda_func_invoke_arn
 }
 
-output "api_gateway_invoke_url" {
-  value = module.api_gateway.api_gateway_invoke_url
+output "lambda_func_name" {
+  value = module.lambda.lambda_func_name
+}
+
+output "api_gateway_api_endpoint" {
+  value = "${module.api_gateway.api_gateway_invoke_url}/${module.lambda.lambda_func_name}"
 }
