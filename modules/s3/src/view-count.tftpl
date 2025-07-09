@@ -1,0 +1,24 @@
+function getOrdinalPos(n) {
+  let suffix = "th";
+  if (n % 100 < 11 || n % 100 > 13) {
+    switch (n % 10) {
+      case 1: suffix = "st"; break;
+      case 2: suffix = "nd"; break;
+      case 3: suffix = "rd"; break;
+    }
+  }
+  const result = `$${n}$${suffix}`;
+  return result;
+}
+async function updateCounter() {
+  try {
+    const response = await fetch("${api_endpoint}");
+    if (!response.ok) throw new Error(`HTTP error! Status: $${response.status}`);
+
+    const data = await response.json();
+    document.getElementById("${view_count_html_id}").innerText = `$${getOrdinalPos(data)}`;
+  } catch (error) {
+    console.error("Error in updateCounter:", error);
+  }
+}
+updateCounter();

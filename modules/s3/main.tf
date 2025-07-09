@@ -43,7 +43,20 @@ resource "aws_s3_bucket_policy" "crc_bucket_policy" {
 # Uploads site files to the S3 bucket using `aws s3 sync` command
 resource "null_resource" "site_files_upload" {
   provisioner "local-exec" {
-    command     = "aws s3 sync ${var.site_files_path}/. s3://${aws_s3_bucket.crc_bucket.id} --delete --exclude '.git/*' --exclude '.git'"
+    command     = <<EOT
+      cd ..
+      git clone ${var.site_files_git_repo} site_files
+      mkdir -p site_files/assets/js
+      cat <<'EOF' > site_files/assets/js/view-count.js
+${local.js_contents}
+EOF
+      sed -Ei 's/^(\s+)(<\/main>)/\1\2\n\n\1<!-- Inserted by Terraform -->\n\1<script src=".\/assets\/js\/view-count.js"><\/script>/' site_files/index.html
+      aws s3 sync site_files/. s3://${aws_s3_bucket.crc_bucket.id} --delete --exclude '.git/*' --exclude '.git'
+    EOT
     working_dir = path.root
   }
+}
+
+locals {
+  js_contents = templatefile("${path.module}/src/view-count.tftpl", { api_endpoint : "${var.api_gateway_api_endpoint}", view_count_html_id : "${var.view_count_html_id}" })
 }

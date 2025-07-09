@@ -5,6 +5,10 @@
 *.tfstate
 *.tfstate.*
 
+# .config files
+# eg. state.config <- holds/provides the actual values for backend.tf
+*.config
+
 # Crash log files
 crash.log
 crash.*.log

@@ -47,8 +47,11 @@ module "lambda" {
 }
 
 module "s3" {
-  source           = "./modules/s3"
-  domain_name      = var.domain_name
-  distribution_arn = module.cloudfront.distribution_arn
-  site_files_path  = var.site_files_path
+  source                   = "./modules/s3"
+  domain_name              = var.domain_name
+  distribution_arn         = module.cloudfront.distribution_arn
+  site_files_path          = var.site_files_path
+  site_files_git_repo      = var.site_files_git_repo
+  view_count_html_id       = var.view_count_html_id
+  api_gateway_api_endpoint = "${module.api_gateway.api_gateway_invoke_url}/${module.lambda.lambda_func_name}"
 }
