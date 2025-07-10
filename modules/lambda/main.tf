@@ -76,6 +76,8 @@ resource "aws_lambda_function" "lambda_func" {
   }
 }
 
+# As we are using API Gateway API Endpoint to trigger our Lambda function,
+# having a Lambda Function URL is not necessary.
 # Creates a URL endpoint for the Lambda function, enabling direct HTTP(S) invocation
 resource "aws_lambda_function_url" "lambda_func_url" {
   function_name      = aws_lambda_function.lambda_func.function_name

@@ -22,6 +22,18 @@ variable "hostinger_api_token" {
   sensitive   = true
 }
 
+variable "github_token" {
+  description = "Github Token"
+  type        = string
+  sensitive   = true
+}
+
+variable "github_repo" {
+  description = "Github Repository"
+  type        = string
+  sensitive   = true
+}
+
 variable "domain_name" {
   description = "Domain Name"
   type        = string

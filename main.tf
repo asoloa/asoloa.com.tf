@@ -55,3 +55,11 @@ module "s3" {
   view_count_html_id       = var.view_count_html_id
   api_gateway_api_endpoint = "${module.api_gateway.api_gateway_invoke_url}/${module.lambda.lambda_func_name}"
 }
+
+module "github" {
+  source           = "./modules/github"
+  github_repo      = var.github_repo
+  distribution_arn = module.cloudfront.distribution_arn
+  s3_bucket_name   = module.s3.s3_bucket_name
+  aws_region       = var.aws_region
+}
