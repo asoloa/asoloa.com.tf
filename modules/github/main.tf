@@ -4,10 +4,10 @@ resource "github_actions_secret" "S3_SITE_BUCKET" {
   plaintext_value = var.s3_bucket_name
 }
 
-resource "github_actions_secret" "CLOUDFRONT_DIST_ARN" {
+resource "github_actions_secret" "CLOUDFRONT_DIST_ID" {
   repository      = var.github_repo
-  secret_name     = "CLOUDFRONT_DIST_ARN"
-  plaintext_value = var.distribution_arn
+  secret_name     = "CLOUDFRONT_DIST_ID"
+  plaintext_value = var.distribution_id
 }
 
 resource "github_actions_variable" "AWS_REGION" {

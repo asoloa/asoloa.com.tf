@@ -57,9 +57,9 @@ module "s3" {
 }
 
 module "github" {
-  source           = "./modules/github"
-  github_repo      = var.github_repo
-  distribution_arn = module.cloudfront.distribution_arn
-  s3_bucket_name   = module.s3.s3_bucket_name
-  aws_region       = var.aws_region
+  source          = "./modules/github"
+  github_repo     = var.github_repo
+  distribution_id = module.cloudfront.distribution_id
+  s3_bucket_name  = module.s3.s3_bucket_name
+  aws_region      = var.aws_region
 }

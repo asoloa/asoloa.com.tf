@@ -9,8 +9,8 @@ variable "github_repo" {
   sensitive   = true
 }
 
-variable "distribution_arn" {
-  description = "CloudFront Distribution ARN"
+variable "distribution_id" {
+  description = "CloudFront Distribution ID"
   type        = string
 }
 
