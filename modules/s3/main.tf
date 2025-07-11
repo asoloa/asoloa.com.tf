@@ -51,7 +51,8 @@ resource "null_resource" "site_files_upload" {
 ${local.js_contents}
 EOF
       sed -Ei 's/^(\s+)(<\/main>)/\1\2\n\n\1<!-- Inserted by Terraform -->\n\1<script src=".\/assets\/js\/view-count.js"><\/script>/' site_files/index.html
-      aws s3 sync site_files/. s3://${aws_s3_bucket.crc_bucket.id} --delete --exclude '.git/*' --exclude '.git'
+      aws s3 sync site_files/. s3://${aws_s3_bucket.crc_bucket.id} --delete --exclude '.git*'
+      rm -rf site_files
     EOT
     working_dir = path.root
   }
