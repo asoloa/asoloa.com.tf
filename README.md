@@ -1,9 +1,11 @@
 # asoloa.com.tf
 
-![asoloa.com.tf Architecture](assets/architecture.png)
+![asoloa.com.tf Architecture](assets/asoloa.com.tf_Architecture.png)
 **NOTE:** Not every resources and processes are shown in the diagram above.
 
-For the full mapping of the resources, see the [resource dependency graph](assets/graph.png).
+For a broader view of the architecture, see [asoloa.com Architecture](assets/asoloa.com_Architecture.png).
+\
+For the full mapping of the resources, see [resource dependency graph](assets/graph.png).
 
 \
 List of Modules (creation and configuration):
