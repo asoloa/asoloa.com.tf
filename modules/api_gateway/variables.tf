@@ -12,3 +12,8 @@ variable "lambda_func_invoke_arn" {
   description = "Lambda Function Invoke ARN"
   type        = string
 }
+
+variable "domain_name" {
+  description = "Domain Name"
+  type        = string
+}

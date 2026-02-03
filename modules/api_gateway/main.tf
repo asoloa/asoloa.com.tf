@@ -3,7 +3,9 @@ resource "aws_apigatewayv2_api" "http-api" {
   name          = "${var.lambda_func_name}-api"
   protocol_type = "HTTP"
   cors_configuration {
-    allow_origins = ["*"]
+    allow_origins = ["https://${var.domain_name}"]
+    allow_methods = ["POST"]
+    allow_headers = ["content-type", "access-control-allow-origin"]
   }
 }
 

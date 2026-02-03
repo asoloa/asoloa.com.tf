@@ -49,18 +49,41 @@ jobs:
           # Check if chatbot CSS is already injected
           if ! grep -q 'chatbot.css' ./index.html; then
             # Inject chatbot CSS before </head>
-            sed -i 's|</head>|  <!-- Chatbot Styles (Inserted by GitHub Actions) -->\n  <link rel="stylesheet" href="./assets/css/chatbot.css">\n</head>|' ./index.html
+            sed -i 's|</head>|\
+              <!-- Chatbot Styles (Inserted by GitHub Actions) -->\
+              <link rel="stylesheet" href="./assets/css/chatbot.css">\
+              </head>|' ./index.html
           fi
 
           # Check if chatbot-data.js is already injected
           if ! grep -q 'chatbot-data.js' ./index.html; then
             # Inject chatbot scripts before </body>
-            sed -i 's|</body>|  <!-- Chatbot (Inserted by GitHub Actions) -->\n  <div id="chatbot-root"></div>\n  <script src="./assets/js/chatbot-data.js"></script>\n  <script src="./assets/js/chatbot.js"></script>\n</body>|' ./index.html
+            sed -i 's|</body>|\
+              <!-- Chatbot (Inserted by GitHub Actions) -->\
+              <div id="chatbot-root"></div>\
+              <script src="./assets/js/chatbot-data.js"></script>\
+              <script src="./assets/js/chatbot.js"></script>\
+              </body>|' ./index.html
           fi
 
           # Check if chatbot.html include is needed (fetch chatbot HTML template)
           if ! grep -q 'chatbot-root' ./index.html; then
-            sed -i 's|</body>|  <div id="chatbot-root"></div>\n</body>|' ./index.html
+            sed -i 's|</body>|\
+              <div id="chatbot-root"></div>\
+              </body>|' ./index.html
+          fi
+
+          # Inject chatbot.html loader script if not already present
+          if ! grep -q 'Chatbot HTML Injection' ./index.html; then
+            sed -i '/<div id="chatbot-root"><\/div>/a \
+              <!-- Chatbot HTML Injection -->\
+              <script>\
+              fetch("./assets/js/chatbot.html")\
+                .then(r => r.text())\
+                .then(html => {\
+                document.getElementById("chatbot-root").innerHTML = html;\
+                });\
+              </script>' ./index.html
           fi
 
       # Upload chatbot files to S3

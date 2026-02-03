@@ -17,6 +17,7 @@ module "hostinger" {
 
 module "api_gateway" {
   source                 = "./modules/api_gateway"
+  domain_name            = var.domain_name
   api_gateway_stage      = var.api_gateway_stage
   lambda_func_name       = module.lambda.lambda_func_name
   lambda_func_invoke_arn = module.lambda.lambda_func_invoke_arn
