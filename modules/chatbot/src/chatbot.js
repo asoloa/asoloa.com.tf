@@ -151,14 +151,17 @@ function buildFilteredContext(question, knowledgebase) {
   const keywords = extractKeywords(question);
   const context = {};
   
-  // Always include basic about info if available
+  // Always include basic about info and portfolio if available
   if (knowledgebase.about) {
     context.about = knowledgebase.about;
+  }
+
+  if (knowledgebase.portfolio) {
+    context.portfolio = knowledgebase.portfolio;
   }
   
   // Score and filter other sections
   const sections = [
-    { key: 'portfolio', items: knowledgebase.portfolio },
     { key: 'services', items: knowledgebase.services },
     { key: 'certifications', items: knowledgebase.certifications },
     { key: 'education', items: knowledgebase.education },
@@ -178,7 +181,7 @@ function buildFilteredContext(question, knowledgebase) {
   });
   
   // Always include technologies if asking about skills/tech
-  const techKeywords = ['skill', 'tech', 'tool', 'stack', 'technology', 'work with', 'use', 'know'];
+  const techKeywords = ['skill', 'tech', 'tool', 'stack', 'technology', 'technologies', 'aws', 'azure', 'service', 'work with', 'use', 'know'];
   if (techKeywords.some(k => question.toLowerCase().includes(k)) && knowledgebase.technologies?.tools) {
     context.technologies = knowledgebase.technologies.tools;
   }
@@ -199,7 +202,6 @@ function buildFilteredContext(question, knowledgebase) {
       }));
     }
   }
-  
   return JSON.stringify(context);
 }
 

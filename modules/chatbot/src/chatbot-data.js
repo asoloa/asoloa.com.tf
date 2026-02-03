@@ -29,28 +29,32 @@ const kbData = {
   },
   portfolio: [
     {
-      title: "gcommit",
-      description: "CLI tool and Git hook that generates Conventional Commits using OpenAI API. Includes a Python script that estimates the tokens to be consumed by the input.",
-      link: "https://github.com/asoloa/gcommit",
-      keywords: ["cli", "git", "openai", "python", "automation", "commits", "project"]
-    },
-    {
       title: "asoloa.com: Personal Website",
       description: "A fully serverless web application using a cloud-native architecture utilizing multiple AWS services, with everything automatically provisioned via Terraform, source-controlled with GitHub, and with changes automatically deployed via GitHub Actions with AWS CLI and Ansible.",
       link: "https://github.com/asoloa/asoloa.com",
-      keywords: ["website", "serverless", "aws", "terraform", "github", "ansible", "project"]
+      keywords: ["website", "serverless", "aws", "terraform", "github", "ansible", "project"],
+      technologies: 'aws, ansible, terraform, github, github actions, amazon lambda, amazon api gateway, aws s3, amazon cloudfront, openai, ai chatbot'
     },
     {
       title: "asoloa.com.tf: Terraform Project for Personal Website",
       description: "IaC solution for asoloa.com, with everything built and run on the cloud.",
       link: "https://github.com/asoloa/asoloa.com.tf",
-      keywords: ["terraform", "iac", "infrastructure", "aws", "cloud", "project"]
+      keywords: ["terraform", "iac", "infrastructure", "aws", "cloud", "project"],
+      technologies: 'aws, ansible, terraform, github, github actions, amazon lambda, amazon api gateway, aws s3, amazon cloudfront, openai, ai chatbot'
     },
     {
       title: "PowerShell Calendar Report Generator",
       description: "VBA Macro converted to a modern and automated PowerShell solution for transforming timesheet data into a calendar-style Excel report. It leverages PowerShell and Excel COM automation for fast, in-memory data processing and clean, professional output.",
       link: "https://github.com/asoloa/learn-powershell/tree/main/WorkCalendar",
-      keywords: ["powershell", "excel", "vba", "automation", "report", "project"]
+      keywords: ["powershell", "excel", "vba", "automation", "report", "project"],
+      technologies: 'excel vba, powershell'
+    },
+    {
+      title: "gcommit",
+      description: "CLI tool and Git hook that generates Conventional Commits using OpenAI API. Includes a Python script that estimates the tokens to be consumed by the input.",
+      link: "https://github.com/asoloa/gcommit",
+      keywords: ["cli", "git", "openai", "python", "automation", "commits", "project"],
+      technologies: 'bash, git, openai, python, tiktoken'
     }
   ],
   services: [
@@ -79,16 +83,13 @@ const kbData = {
     tools: [
       'Amazon API Gateway', 'Amazon CloudFront', 'Amazon CloudWatch', 'Amazon DynamoDB', 
       'Amazon EC2', 'Amazon GuardDuty', 'Amazon RDS', 'Amazon S3', 'Amazon VPC', 
-      'AWS Cert Manager', 'AWS DMS', 'AWS IAM', 'AWS Lambda',
-      'Ansible', 'Bash', 'Linux', 'Linode', 'OpenStack', 'OpenShift', 'Vagrant', 'Terraform',
-      'Docker', 'Kubernetes',
-      'Excel VBA', 'Java', 'PHP', 'VueJS',
-      'MySQL',
-      'Git', 'GitHub', 'GitHub Actions', 'GitLab',
-      'Jira', 'Redmine',
+      'AWS Cert Manager', 'AWS DMS', 'AWS IAM', 'AWS Lambda', 
+      'Ansible', 'Terraform', 'Bash', 'PowerShell', 'Excel VBA', 'GitHub Actions', 'Git',
+      'OpenAI API','OpenStack', 'OpenShift', 'Docker', 'Kubernetes', 'Linux KVM',  'GitHub', 'Linode',
+      'Java', 'PHP', 'VueJS', 'Vagrant', 'MySQL', 'GitLab', 'Jira', 'Redmine', 
       'Asterisk', 'SendGrid', 'Slack'
     ],
-    keywords: ["technology", "technologies", "tools", "skills", "stack", "tech"]
+    keywords: ["technology", "technologies", "tool", "skill", "stack", "tech"]
   },
   certifications: [
     {
