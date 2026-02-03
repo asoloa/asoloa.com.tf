@@ -1,0 +1,45 @@
+<!-- Chatbot UI for asoloa.com -->
+<!-- FAB Button (minimized state) -->
+<button id="chatbot-fab" class="chatbot-fab" title="Ask about Sol (Press Enter to open)" aria-label="Open chatbot">
+  🤖💬
+</button>
+
+<!-- Tooltip for highlighting -->
+<div id="chatbot-tooltip" class="chatbot-tooltip" role="tooltip" aria-hidden="true">
+  Ask about Sol here
+</div>
+
+<!-- Chatbot Container (hidden by default) -->
+<div id="asoloa-chatbot" class="chatbot-container chatbot-hidden" role="dialog" aria-labelledby="chatbot-title" aria-modal="true">
+  <div class="chatbot-header">
+    <span class="chatbot-header-title" id="chatbot-title">
+      🤖 AI AMBot
+    </span>
+    <button id="chatbot-minimize" class="chatbot-minimize" title="Minimize (Esc)" aria-label="Minimize chatbot">
+      _
+    </button>
+  </div>
+  
+  <div id="chatbot-messages" class="chatbot-messages" role="log" aria-live="polite" aria-label="Chat messages">
+    <!-- Messages will be dynamically inserted here -->
+  </div>
+  
+  <form id="chatbot-form" class="chatbot-form" autocomplete="off">
+    <input 
+      type="text" 
+      id="chatbot-input" 
+      class="chatbot-input" 
+      placeholder="Ask about Sol..." 
+      autocomplete="off" 
+      required 
+      aria-label="Type your question"
+    />
+    <button type="submit" class="chatbot-send" aria-label="Send message">
+      Send
+    </button>
+  </form>
+  
+  <div class="chatbot-shortcut-hint" aria-hidden="true">
+    <kbd>Enter</kbd> to send · <kbd>Esc</kbd> to minimize
+  </div>
+</div>

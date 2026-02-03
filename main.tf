@@ -57,9 +57,21 @@ module "s3" {
 }
 
 module "github" {
-  source          = "./modules/github"
-  github_repo     = var.github_repo
-  distribution_id = module.cloudfront.distribution_id
-  s3_bucket_name  = module.s3.s3_bucket_name
-  aws_region      = var.aws_region
+  source               = "./modules/github"
+  github_repo          = var.github_repo
+  github_repo_tf       = var.github_repo_tf
+  distribution_id      = module.cloudfront.distribution_id
+  s3_bucket_name       = module.s3.s3_bucket_name
+  aws_region           = var.aws_region
+  chatbot_api_endpoint = module.chatbot.api_endpoint
+}
+
+module "chatbot" {
+  source                    = "./modules/chatbot"
+  domain_name               = var.domain_name
+  openai_api_key            = var.openai_api_key
+  api_gateway_id            = module.api_gateway.api_gateway_id
+  api_gateway_execution_arn = module.api_gateway.api_gateway_execution_arn
+  api_gateway_invoke_url    = module.api_gateway.api_gateway_invoke_url
+  s3_bucket_id              = module.s3.s3_bucket_name
 }

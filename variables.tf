@@ -22,6 +22,12 @@ variable "hostinger_api_token" {
   sensitive   = true
 }
 
+variable "openai_api_key" {
+  description = "OpenAI API Key"
+  type        = string
+  sensitive   = true
+}
+
 variable "github_token" {
   description = "Github Token"
   type        = string
@@ -32,6 +38,13 @@ variable "github_repo" {
   description = "Github Repository"
   type        = string
   sensitive   = true
+}
+
+variable "github_repo_tf" {
+  description = "Github Repository for Terraform (asoloa.com.tf)"
+  type        = string
+  sensitive   = true
+  default     = ""
 }
 
 variable "domain_name" {

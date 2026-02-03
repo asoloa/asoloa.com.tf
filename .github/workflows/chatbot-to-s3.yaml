@@ -1,0 +1,89 @@
+---
+
+name: Upload Chatbot Files to S3 Bucket
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'modules/chatbot/src/**'
+  workflow_dispatch:
+    inputs:
+      force_upload:
+        description: 'Force upload all chatbot files'
+        required: false
+        default: 'false'
+
+permissions:
+  id-token: write # Required for requesting the JWT
+  contents: read  # Required for actions/checkout
+
+jobs:
+  chatbot_s3_sync:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # Inject the actual API endpoint into chatbot.js
+      - name: Generate chatbot.js with API endpoint
+        run: |
+          # Replace the placeholder with the actual API endpoint
+          sed -i "s|__CHATBOT_API_ENDPOINT__|${{ secrets.CHATBOT_API_ENDPOINT }}|g" modules/chatbot/src/chatbot.js
+
+      # Download existing index.html to preserve view-count.js and other injections
+      - name: Download current index.html from S3
+        run: |
+          aws s3 cp s3://${{ secrets.S3_SITE_BUCKET }}/index.html ./index.html || echo "No existing index.html found"
+
+      # Inject chatbot references into index.html if not already present
+      - name: Update index.html with chatbot references
+        run: |
+          # Check if chatbot CSS is already injected
+          if ! grep -q 'chatbot.css' ./index.html; then
+            # Inject chatbot CSS before </head>
+            sed -i 's|</head>|  <!-- Chatbot Styles (Inserted by GitHub Actions) -->\n  <link rel="stylesheet" href="./assets/css/chatbot.css">\n</head>|' ./index.html
+          fi
+
+          # Check if chatbot-data.js is already injected
+          if ! grep -q 'chatbot-data.js' ./index.html; then
+            # Inject chatbot scripts before </body>
+            sed -i 's|</body>|  <!-- Chatbot (Inserted by GitHub Actions) -->\n  <div id="chatbot-root"></div>\n  <script src="./assets/js/chatbot-data.js"></script>\n  <script src="./assets/js/chatbot.js"></script>\n</body>|' ./index.html
+          fi
+
+          # Check if chatbot.html include is needed (fetch chatbot HTML template)
+          if ! grep -q 'chatbot-root' ./index.html; then
+            sed -i 's|</body>|  <div id="chatbot-root"></div>\n</body>|' ./index.html
+          fi
+
+      # Upload chatbot files to S3
+      - name: Upload chatbot CSS to S3
+        run: |
+          aws s3 cp modules/chatbot/src/chatbot.css s3://${{ secrets.S3_SITE_BUCKET }}/assets/css/chatbot.css
+
+      - name: Upload chatbot JS files to S3
+        run: |
+          aws s3 cp modules/chatbot/src/chatbot.js s3://${{ secrets.S3_SITE_BUCKET }}/assets/js/chatbot.js
+          aws s3 cp modules/chatbot/src/chatbot-data.js s3://${{ secrets.S3_SITE_BUCKET }}/assets/js/chatbot-data.js
+
+      - name: Upload chatbot HTML to S3
+        run: |
+          aws s3 cp modules/chatbot/src/chatbot.html s3://${{ secrets.S3_SITE_BUCKET }}/assets/js/chatbot.html
+
+      - name: Upload updated index.html to S3
+        run: |
+          aws s3 cp ./index.html s3://${{ secrets.S3_SITE_BUCKET }}/index.html
+
+      # Invalidate CloudFront cache for chatbot files
+      - name: Invalidate CloudFront distribution
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} \
+            --paths '/assets/css/chatbot.css' '/assets/js/chatbot.js' '/assets/js/chatbot-data.js' '/assets/js/chatbot.html' '/index.html'
