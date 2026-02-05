@@ -1,6 +1,6 @@
 # Creates an AWS API Gateway V2 HTTP API resource
 resource "aws_apigatewayv2_api" "http-api" {
-  name          = "${var.lambda_func_name}-api"
+  name          = "${replace(var.domain_name, ".", "_")}-api"
   protocol_type = "HTTP"
   cors_configuration {
     allow_origins = ["https://${var.domain_name}"]
@@ -20,7 +20,7 @@ resource "aws_apigatewayv2_integration" "lambda_integration" {
 # Creates an AWS API Gateway V2 HTTP API route for Lambda function integration
 resource "aws_apigatewayv2_route" "lambda_route" {
   api_id    = aws_apigatewayv2_api.http-api.id
-  route_key = "ANY /${var.lambda_func_name}"
+  route_key = "ANY /view-count"
   target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
 }
 
@@ -30,7 +30,7 @@ resource "aws_lambda_permission" "allow_http_api" {
   action        = "lambda:InvokeFunction"
   function_name = var.lambda_func_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_apigatewayv2_api.http-api.execution_arn}/*/*/${var.lambda_func_name}"
+  source_arn    = "${aws_apigatewayv2_api.http-api.execution_arn}/*/*/view-count"
 }
 
 # Creates an AWS API Gateway V2 HTTP API stage
