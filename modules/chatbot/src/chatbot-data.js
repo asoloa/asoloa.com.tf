@@ -16,6 +16,7 @@ const SAMPLE_QUESTIONS = [
   "What are some personal projects Sol has worked on?",
   "What technologies did Sol work on recently?",
   "What certifications does Sol have?",
+  "What are Sol's AI-related projects?",
 ];
 
 // Main knowledgebase structure
@@ -30,17 +31,24 @@ const kbData = {
   portfolio: [
     {
       title: "asoloa.com: Personal Website",
-      description: "A fully serverless web application using a cloud-native architecture utilizing multiple AWS services, with everything automatically provisioned via Terraform, source-controlled with GitHub, and with changes automatically deployed via GitHub Actions with AWS CLI and Ansible.",
+      description: "A fully serverless web application with an AI chatbot, using a cloud-native architecture utilizing multiple AWS services, with everything automatically provisioned via Terraform, source-controlled with GitHub, and with changes automatically deployed via GitHub Actions with AWS CLI and Ansible.",
       link: "https://github.com/asoloa/asoloa.com",
-      keywords: ["website", "serverless", "aws", "terraform", "github", "ansible", "project"],
-      technologies: 'aws, ansible, terraform, github, github actions, amazon lambda, amazon api gateway, aws s3, amazon cloudfront, openai, ai chatbot'
+      keywords: ["website", "serverless", "aws", "terraform", "github", "ansible", "project", "ai", "chatbot", "openai"],
+      technologies: 'aws, ansible, terraform, github, github actions, amazon lambda, amazon api gateway, aws s3, amazon cloudfront, openai, ai chatbot, ai'
     },
     {
       title: "asoloa.com.tf: Terraform Project for Personal Website",
       description: "IaC solution for asoloa.com, with everything built and run on the cloud.",
       link: "https://github.com/asoloa/asoloa.com.tf",
-      keywords: ["terraform", "iac", "infrastructure", "aws", "cloud", "project"],
-      technologies: 'aws, ansible, terraform, github, github actions, amazon lambda, amazon api gateway, aws s3, amazon cloudfront, openai, ai chatbot'
+      keywords: ["terraform", "iac", "infrastructure", "aws", "cloud", "project", "ai", "chatbot", "openai"],
+      technologies: 'aws, ansible, terraform, github, github actions, amazon lambda, amazon api gateway, aws s3, amazon cloudfront, openai, ai chatbot, ai'
+    },
+    {
+      title: "AI AMBot: AI Chatbot for Personal Website",
+      description: "AI-powered chatbot integrated into asoloa.com, built using AWS Lambda, API Gateway, and OpenAI to provide dynamic responses about my background and projects.",
+      link: "https://github.com/asoloa/asoloa.com.tf",
+      keywords: ["ai", "chatbot", "openai", "aws", "lambda", "api gateway", "project"],
+      technologies: 'aws, amazon lambda, amazon api gateway, openai, ai chatbot, ai'
     },
     {
       title: "PowerShell Calendar Report Generator",
@@ -54,7 +62,7 @@ const kbData = {
       description: "CLI tool and Git hook that generates Conventional Commits using OpenAI API. Includes a Python script that estimates the tokens to be consumed by the input.",
       link: "https://github.com/asoloa/gcommit",
       keywords: ["cli", "git", "openai", "python", "automation", "commits", "project"],
-      technologies: 'bash, git, openai, python, tiktoken'
+      technologies: 'bash, git, openai, python, tiktoken, ai'
     }
   ],
   services: [
@@ -85,7 +93,7 @@ const kbData = {
       'Amazon EC2', 'Amazon GuardDuty', 'Amazon RDS', 'Amazon S3', 'Amazon VPC', 
       'AWS Cert Manager', 'AWS DMS', 'AWS IAM', 'AWS Lambda', 
       'Ansible', 'Terraform', 'Bash', 'PowerShell', 'Excel VBA', 'GitHub Actions', 'Git',
-      'OpenAI API','OpenStack', 'OpenShift', 'Docker', 'Kubernetes', 'Linux KVM',  'GitHub', 'Linode',
+      'OpenAI API', 'AI', 'OpenStack', 'OpenShift', 'Docker', 'Kubernetes', 'Linux KVM',  'GitHub', 'Linode',
       'Java', 'PHP', 'VueJS', 'Vagrant', 'MySQL', 'GitLab', 'Jira', 'Redmine', 
       'Asterisk', 'SendGrid', 'Slack'
     ],
