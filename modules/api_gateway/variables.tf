@@ -17,3 +17,8 @@ variable "domain_name" {
   description = "Domain Name"
   type        = string
 }
+
+variable "api_gateway_view-count-resource" {
+  description = "API Gateway resource path for view count"
+  type        = string
+}

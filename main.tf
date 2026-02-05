@@ -16,11 +16,12 @@ module "hostinger" {
 }
 
 module "api_gateway" {
-  source                 = "./modules/api_gateway"
-  domain_name            = var.domain_name
-  api_gateway_stage      = var.api_gateway_stage
-  lambda_func_name       = module.lambda.lambda_func_name
-  lambda_func_invoke_arn = module.lambda.lambda_func_invoke_arn
+  source                          = "./modules/api_gateway"
+  domain_name                     = var.domain_name
+  api_gateway_stage               = var.api_gateway_stage
+  api_gateway_view-count-resource = var.api_gateway_view-count-resource
+  lambda_func_name                = module.lambda.lambda_func_name
+  lambda_func_invoke_arn          = module.lambda.lambda_func_invoke_arn
 }
 
 module "cloudfront" {
@@ -54,7 +55,7 @@ module "s3" {
   site_files_path          = var.site_files_path
   site_files_git_repo      = var.site_files_git_repo
   view_count_html_id       = var.view_count_html_id
-  api_gateway_api_endpoint = "${module.api_gateway.api_gateway_invoke_url}/${module.lambda.lambda_func_name}"
+  api_gateway_api_endpoint = "${module.api_gateway.api_gateway_invoke_url}/${var.api_gateway_view-count-resource}"
 }
 
 module "github" {
