@@ -83,8 +83,8 @@ function extractKeywords(question) {
     'job': ['work', 'experience', 'career', 'employment'],
     'work': ['job', 'experience', 'career', 'employment'],
     'experience': ['job', 'work', 'career', 'background'],
-    'projects': ['portfolio', 'project', 'work', 'built'],
-    'project': ['portfolio', 'projects', 'work', 'built'],
+    'projects': ['portfolio', 'project', 'work', 'built', 'experience', 'exp'],
+    'project': ['portfolio', 'projects', 'work', 'built', 'experience', 'exp'],
     'skills': ['technologies', 'tools', 'tech', 'stack'],
     'tech': ['technologies', 'tools', 'skills', 'stack'],
     'technologies': ['skills', 'tools', 'tech', 'stack'],
@@ -162,7 +162,6 @@ function buildFilteredContext(question, knowledgebase) {
   
   // Score and filter other sections
   const sections = [
-    { key: 'services', items: knowledgebase.services },
     { key: 'certifications', items: knowledgebase.certifications },
     { key: 'education', items: knowledgebase.education },
     { key: 'experiences', items: knowledgebase.experiences },

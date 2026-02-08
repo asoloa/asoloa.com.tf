@@ -30,7 +30,7 @@ CRITICAL INSTRUCTIONS:
 2. Use <p> tags for paragraphs
 3. Use <ul> and <li> for lists
 4. Use <strong> for emphasis
-5. Use <a href="url" target="_blank"> for links
+5. Use <a href="url" target="_blank"> for links, ensure links are inline and do not break the flow of the text
 6. Do NOT include markdown formatting
 7. Do NOT wrap response in \`\`\`html code blocks
 8. Be friendly, professional, and concise

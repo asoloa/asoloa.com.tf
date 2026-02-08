@@ -34,21 +34,21 @@ const kbData = {
       description: "A fully serverless web application with an AI chatbot, using a cloud-native architecture utilizing multiple AWS services, with everything automatically provisioned via Terraform, source-controlled with GitHub, and with changes automatically deployed via GitHub Actions with AWS CLI and Ansible.",
       link: "https://github.com/asoloa/asoloa.com",
       keywords: ["website", "serverless", "aws", "terraform", "github", "ansible", "project", "ai", "chatbot", "openai"],
-      technologies: 'aws, ansible, terraform, github, github actions, amazon lambda, amazon api gateway, aws s3, amazon cloudfront, openai, ai chatbot, ai'
+      technologies: 'aws, amazon, ansible, terraform, github, github actions, amazon lambda, amazon api gateway, aws s3, amazon cloudfront, openai, ai chatbot, chatbot,ai'
     },
     {
       title: "asoloa.com.tf: Terraform Project for Personal Website",
       description: "IaC solution for asoloa.com, with everything built and run on the cloud.",
       link: "https://github.com/asoloa/asoloa.com.tf",
       keywords: ["terraform", "iac", "infrastructure", "aws", "cloud", "project", "ai", "chatbot", "openai"],
-      technologies: 'aws, ansible, terraform, github, github actions, amazon lambda, amazon api gateway, aws s3, amazon cloudfront, openai, ai chatbot, ai'
+      technologies: 'aws, amazon, ansible, terraform, github, github actions, amazon lambda, amazon api gateway, aws s3, amazon cloudfront, openai, ai chatbot, chatbot, ai'
     },
     {
       title: "AI AMBot: AI Chatbot for Personal Website",
       description: "AI-powered chatbot integrated into asoloa.com, built using AWS Lambda, API Gateway, and OpenAI to provide dynamic responses about my background and projects.",
       link: "https://github.com/asoloa/asoloa.com.tf",
       keywords: ["ai", "chatbot", "openai", "aws", "lambda", "api gateway", "project"],
-      technologies: 'aws, amazon lambda, amazon api gateway, openai, ai chatbot, ai'
+      technologies: 'aws, amazon, amazon lambda, amazon api gateway, openai, ai chatbot, chatbot, ai'
     },
     {
       title: "PowerShell Calendar Report Generator",
@@ -65,28 +65,6 @@ const kbData = {
       technologies: 'bash, git, openai, python, tiktoken, ai'
     }
   ],
-  services: [
-    {
-      name: "Infra Automation",
-      description: "I design and implement automation solutions using Ansible and Terraform to streamline the provisioning, configuration, and deployment of systems.",
-      keywords: ["ansible", "terraform", "automation", "infrastructure", "devops", "service"]
-    },
-    {
-      name: "Scripting",
-      description: "I develop targeted tools using Bash and VBA to automate multiple repetitive tasks that could help people focus on more important things.",
-      keywords: ["bash", "vba", "scripting", "automation", "tools", "service"]
-    },
-    {
-      name: "DevOps Practices",
-      description: "I build and maintain lightweight CI/CD pipelines using GitHub Actions, ensuring efficient code testing, integration, and delivery across development stages.",
-      keywords: ["devops", "cicd", "github", "actions", "pipeline", "service"]
-    },
-    {
-      name: "Documentation & Knowledge Sharing",
-      description: "I create clear, concise internal documentation to ensure effective knowledge transfer and smoother onboarding of team members.",
-      keywords: ["documentation", "knowledge", "training", "onboarding", "service"]
-    }
-  ],
   technologies: {
     tools: [
       'Amazon API Gateway', 'Amazon CloudFront', 'Amazon CloudWatch', 'Amazon DynamoDB', 
@@ -97,7 +75,7 @@ const kbData = {
       'Java', 'PHP', 'VueJS', 'Vagrant', 'MySQL', 'GitLab', 'Jira', 'Redmine', 
       'Asterisk', 'SendGrid', 'Slack'
     ],
-    keywords: ["technology", "technologies", "tool", "skill", "stack", "tech"]
+    keywords: ["technology", "technologies", "tool", "skill", "stack", "tech", "experience", "exp"]
   },
   certifications: [
     {
