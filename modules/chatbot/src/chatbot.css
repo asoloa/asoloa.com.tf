@@ -311,6 +311,7 @@
 
 .chatbot-answer li {
   margin-bottom: 4px;
+  list-style-type: circle;
 }
 
 .chatbot-answer strong,
@@ -326,6 +327,7 @@
 .chatbot-answer a {
   color: var(--chatbot-user-msg);
   text-decoration: none;
+  display: inline;
 }
 
 .chatbot-answer a:hover {

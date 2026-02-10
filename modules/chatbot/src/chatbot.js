@@ -180,7 +180,7 @@ function buildFilteredContext(question, knowledgebase) {
   });
   
   // Always include technologies if asking about skills/tech
-  const techKeywords = ['skill', 'tech', 'tool', 'stack', 'technology', 'technologies', 'aws', 'azure', 'service', 'work with', 'use', 'know'];
+  const techKeywords = ['skill', 'tech', 'tool', 'stack', 'technology', 'technologies', 'aws', 'azure', 'service', 'work with', 'use', 'know', 'experience', 'exp'];
   if (techKeywords.some(k => question.toLowerCase().includes(k)) && knowledgebase.technologies?.tools) {
     context.technologies = knowledgebase.technologies.tools;
   }
