@@ -17,6 +17,7 @@ const SAMPLE_QUESTIONS = [
   "What technologies did Sol work on recently?",
   "What certifications does Sol have?",
   "What are Sol's AI-related projects?",
+  "List Sol's personal links.",
 ];
 
 // Main knowledgebase structure
@@ -26,7 +27,13 @@ const kbData = {
     nickname: "Sol",
     title: "DevOps and Cloud Engineer",
     location: "Cebu City, Philippines",
-    summary: "DevOps and Cloud Engineer with years of experience turning complex problems into clean, automated solutions. Has worked across diverse teams in the Philippines and beyond, leading automation projects, delivering internal training sessions, and solving production issues with a mix of solid engineering and practical problem-solving."
+    summary: "DevOps and Cloud Engineer with years of experience turning complex problems into clean, automated solutions. Has worked across diverse teams in the Philippines and beyond, leading automation projects, delivering internal training sessions, and solving production issues with a mix of solid engineering and practical problem-solving.",
+    links: [
+      { label: "GitHub", url: "https://github.com/asoloa"},
+      { label: "LinkedIn", url: "https://www.linkedin.com/in/abejo-solomon/" },
+      { label: "Email", url: "soloabejo@gmail.com"},
+      { label: "Resume", url: "https://bit.ly/asoloa-cv" }
+    ]
   },
   portfolio: [
     {
